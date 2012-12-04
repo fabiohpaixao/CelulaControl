@@ -18,10 +18,10 @@ public class MembroDao extends GenericDao {
 
 	public void salvar(Membro membro) throws SQLException {
         String insert = "INSERT INTO tmembro(Nome, TelResidencial, TelComercial, TelCelular1, TelCelular2," +
-        		" Email, DataNascimento, FuncaoID, Encontro, Batismo, Cursao, CTL, Consolidado, ConsolidadorID) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        		" Email, DataNascimento, FuncaoID, Encontro, Batismo, Cursao, CTL, Consolidado, ConsolidadorID, DataSaida, MotivoSaida) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         save(insert, membro.getNome(), membro.getTelefoneRes(), membro.getTelefoneCom(), membro.getTelefoneCel1(), membro.getTelefoneCel2(),
         		membro.getEmail(), membro.getDataNascimento(), membro.getFuncaoID(), membro.getEncontro(), membro.getBatismo(), membro.getCursao(), 
-        		membro.getCtl(), membro.getConsolidacao(), membro.getConsolidadorID());
+        		membro.getCtl(), membro.getConsolidacao(), membro.getConsolidadorID(), membro.getDataSaida(), membro.getMotivoSaida());
     }
 
     public void alterar(Membro membro) throws SQLException {
@@ -40,11 +40,13 @@ public class MembroDao extends GenericDao {
                 "Cursao = ?, " +
                 "CTL = ?, " +
                 "Consolidado = ?, " +
-                "ConsolidadorID = ? " +
+                "ConsolidadorID = ?, " +
+                "DataSaida = ?, " +
+                "MotivoSaida = ? " +
                 "WHERE ID = ?";
         update(update, membro.getNome(), membro.getTelefoneRes(), membro.getTelefoneCom(), membro.getTelefoneCel1(), membro.getTelefoneCel2(),
         		membro.getEmail(), membro.getDataNascimento(), membro.getFuncaoID(), membro.getEncontro(), membro.getBatismo(), membro.getCursao(), 
-        		membro.getCtl(), membro.getConsolidacao(), membro.getConsolidadorID(), membro.getId());
+        		membro.getCtl(), membro.getConsolidacao(), membro.getConsolidadorID(), membro.getDataSaida(), membro.getMotivoSaida(), membro.getId());
     }
 
     public void excluir(long id) throws SQLException {
@@ -78,7 +80,8 @@ public class MembroDao extends GenericDao {
         	membro.setCtl(rs.getInt("CTL"));
         	membro.setConsolidacao(rs.getInt("Consolidado"));
         	membro.setConsolidadorID(rs.getInt("ConsolidadorID"));
-        	
+        	membro.setDataSaida(rs.getDate("DataSaida"));
+        	membro.setMotivoSaida(rs.getString("MotivoSaida"));
             
         	membros.add(membro);
         }
@@ -113,6 +116,8 @@ public class MembroDao extends GenericDao {
         	membro.setCtl(rs.getInt("CTL"));
         	membro.setConsolidacao(rs.getInt("Consolidado"));
         	membro.setConsolidadorID(rs.getInt("ConsolidadorID"));
+        	membro.setDataSaida(rs.getDate("DataSaida"));
+        	membro.setMotivoSaida(rs.getString("MotivoSaida"));
         }
 
         rs.close();

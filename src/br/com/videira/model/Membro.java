@@ -19,6 +19,8 @@ public class Membro {
 	private int ctl;
 	private int consolidacao;
 	private int consolidadorID;
+	private Date dataSaida;
+	private String motivoSaida;
 	/**
 	 * @return the id
 	 */
@@ -198,6 +200,30 @@ public class Membro {
 	 */
 	public void setConsolidadorID(int consolidadorID) {
 		this.consolidadorID = consolidadorID;
+	}
+	/**
+	 * @return the dataSaida
+	 */
+	public Date getDataSaida() {
+		return dataSaida;
+	}
+	/**
+	 * @param dataSaida the dataSaida to set
+	 */
+	public void setDataSaida(Date dataSaida) {
+		this.dataSaida = dataSaida;
+	}
+	/**
+	 * @return the motivoSaida
+	 */
+	public String getMotivoSaida() {
+		return motivoSaida;
+	}
+	/**
+	 * @param motivoSaida the motivoSaida to set
+	 */
+	public void setMotivoSaida(String motivoSaida) {
+		this.motivoSaida = motivoSaida;
 	}
 	
 	

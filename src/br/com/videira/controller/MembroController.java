@@ -20,7 +20,7 @@ public class MembroController {
     }
 
     public void salvar(String Nome, String TelResidencial, String TelComercial, String TelCelular1, String TelCelular2, 
-    		String Email, Date DataNascimento, int FuncaoID, int Encontro, int Batismo, int Cursao,int CTL, int Consolidado, int ConsolidadorID) throws SQLException, ParseException, InstantiationException, IllegalAccessException {
+    		String Email, Date DataNascimento, int FuncaoID, int Encontro, int Batismo, int Cursao,int CTL, int Consolidado, int ConsolidadorID, Date DataSaida, String MotivoSaida) throws SQLException, ParseException, InstantiationException, IllegalAccessException {
         Membro membro = new Membro();
 
     	membro.setNome(Nome);
@@ -37,12 +37,14 @@ public class MembroController {
     	membro.setCtl(CTL);
     	membro.setConsolidacao(Consolidado);
     	membro.setConsolidadorID(ConsolidadorID);
+    	membro.setDataSaida(DataSaida);
+    	membro.setMotivoSaida(MotivoSaida);
 
         new MembroDao().salvar(membro);
     }
 
     public void alterar(int ID, String Nome, String TelResidencial, String TelComercial, String TelCelular1, String TelCelular2, 
-    		String Email, Date DataNascimento, int FuncaoID, int Encontro, int Batismo, int Cursao,int CTL, int Consolidado, int ConsolidadorID) throws ParseException, SQLException, InstantiationException, IllegalAccessException {
+    		String Email, Date DataNascimento, int FuncaoID, int Encontro, int Batismo, int Cursao,int CTL, int Consolidado, int ConsolidadorID, Date DataSaida, String MotivoSaida) throws ParseException, SQLException, InstantiationException, IllegalAccessException {
         Membro membro = new Membro();
         membro.setId(ID);
         membro.setNome(Nome);
@@ -59,6 +61,8 @@ public class MembroController {
     	membro.setCtl(CTL);
     	membro.setConsolidacao(Consolidado);
     	membro.setConsolidadorID(ConsolidadorID);
+    	membro.setDataSaida(DataSaida);
+    	membro.setMotivoSaida(MotivoSaida);
 
         new MembroDao().alterar(membro);
     }

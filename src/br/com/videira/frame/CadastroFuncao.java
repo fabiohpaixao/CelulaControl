@@ -7,33 +7,23 @@ import java.awt.EventQueue;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.sql.SQLException;
 import java.text.ParseException;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 
 import br.com.videira.controller.FuncaoController;
-
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
 public class CadastroFuncao extends JInternalFrame {
@@ -58,11 +48,12 @@ public class CadastroFuncao extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws PropertyVetoException 
 	 */
-	public CadastroFuncao() {
+	public CadastroFuncao() throws PropertyVetoException {
 		setClosable(true);
 		setTitle("Cadastro de Fun\u00E7\u00F5es");
-		setBounds(100, 100, 302, 195);
+		setBounds(100, 100, 344, 185);
 		getContentPane().setLayout(new LayoutManager() {
 			
 			@Override
@@ -122,63 +113,77 @@ public class CadastroFuncao extends JInternalFrame {
 				doDefaultCloseAction();
 			}
 		});
-		
-		JLabel lblAbreviao = new JLabel("Abrevia\u00E7\u00E3o");
-		
-		txtAbreviacao = new JTextField();
-		txtAbreviacao.setColumns(10);
 		btnSalvar.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		JLabel lblTitulo = new JLabel("Titulo:");
+		JLabel lblDigiteAsInformaes = new JLabel("Digite as informa\u00E7\u00F5es das fun\u00E7\u00F5es");
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Insira os dados da fun\u00E7\u00E3o", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		txtNome = new JTextField();
 		txtNome.setColumns(15);
 		
-		JLabel lblDigiteAsInformaes = new JLabel("Digite as informa\u00E7\u00F5es das fun\u00E7\u00F5es");
+		txtAbreviacao = new JTextField();
+		txtAbreviacao.setColumns(10);
+		
+		JLabel lblTitulo = new JLabel("Titulo:");
+		
+		JLabel lblAbreviao = new JLabel("Abrevia\u00E7\u00E3o:");
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblTitulo, Alignment.TRAILING)
+						.addComponent(lblAbreviao, Alignment.TRAILING))
+					.addGap(4)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtAbreviacao, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(30, Short.MAX_VALUE))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblTitulo))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblAbreviao)
+						.addComponent(txtAbreviacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		panel.setLayout(gl_panel);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(10)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(34)
-									.addComponent(lblTitulo))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(lblAbreviao)))
+							.addComponent(btnCancelar)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtAbreviacao, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(btnCancelar)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(btnSalvar))
-									.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(44)
-							.addComponent(lblDigiteAsInformaes)))
-					.addGap(183))
+							.addComponent(btnSalvar))
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 312, GroupLayout.PREFERRED_SIZE))
+					.addGap(133)
+					.addComponent(lblDigiteAsInformaes))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(lblDigiteAsInformaes, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblTitulo)
-						.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAbreviao)
-						.addComponent(txtAbreviacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(29)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblDigiteAsInformaes, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(11)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)))
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnSalvar)
 						.addComponent(btnCancelar))
-					.addContainerGap())
+					.addGap(51))
 		);
 		getContentPane().setLayout(groupLayout);
 
@@ -194,5 +199,4 @@ public class CadastroFuncao extends JInternalFrame {
             JOptionPane.showMessageDialog(this, "Nao foi possivel salvar a função!\n" + e.getLocalizedMessage());
         }
     }
-
 }

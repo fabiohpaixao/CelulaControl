@@ -36,7 +36,8 @@ public class FuncaoDao extends GenericDao {
     }
 
     public List<Funcao> findFuncoes() throws SQLException {
-        List<Funcao> funcoes = new ArrayList<Funcao>();
+     
+    	List<Funcao> funcoes = new ArrayList<Funcao>();
         
         String select = "SELECT * FROM tfuncao";
 

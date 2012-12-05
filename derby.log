@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Tue Dec 04 16:21:48 BRST 2012:
- Inicializando o Derby versão The Apache Software Foundation - Apache Derby - 10.9.1.0 - (1344872): instância a816c00e-013b-6727-0299-0000030841a8
-no diretório de banco de dados C:\JAVA\workspace\CelulaControl\celula  
+Tue Dec 04 23:41:36 BRST 2012:
+ Inicializando o Derby versão The Apache Software Foundation - Apache Derby - 10.9.1.0 - (1344872): instância a816c00e-013b-68b9-a95a-000000b94380
+no diretório de banco de dados D:\Java\Projetos\CelulaControl\celula  
 
 java.vendor=Oracle Corporation
-java.runtime.version=1.7.0_07-b11
-user.dir=C:\JAVA\workspace\CelulaControl
+java.runtime.version=1.7.0_05-b06
+user.dir=D:\Java\Projetos\CelulaControl
 derby.system.home=null
 Carregador de classe do banco de dados iniciado - derby.database.classpath=''

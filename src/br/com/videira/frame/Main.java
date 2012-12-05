@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -17,14 +18,15 @@ import br.com.videira.dao.CreateTables;
 @SuppressWarnings("serial")
 public class Main extends JFrame {
 
-	private JDesktopPane desktopPane;
+	public static JDesktopPane desktopPane;
 	private JMenuItem menuCadastroCelulas, menuCadastroFuncoes,
-			menuCadastroMembros;
+			menuCadastroMembros, menuServicosFrequenciaCulto, menuServicosFrequenciaCelula, menuRelatorioFrequencia;
 	private JMenuBar menuBar;
 	private JMenu menuCadastro, menuRelatorio, menuServicos;
-	private CadastroFuncao frameCadastroFuncao;
+	//private CadastroFuncao frameCadastroFuncao;
+	private EditarFuncao frameEditarFuncao;
+	private EditarCelula frameEditarCelula;
 
-	@SuppressWarnings("serial")
 	public Main() throws InstantiationException, IllegalAccessException {
 
 		super("Controle de Celulas");
@@ -50,12 +52,29 @@ public class Main extends JFrame {
 
 			public void actionPerformed(ActionEvent evt) {
 
-				/*
-				 * if(frameUm == null){ frameUm = new InternalFrameUm();
-				 * frameUm.setVisible(true); desktopPane.add(frameUm); } else
-				 * if(!frameUm.isVisible()){ frameUm.setVisible(true);
-				 * desktopPane.add(frameUm); }
-				 */
+				if (frameEditarCelula == null) {
+					frameEditarCelula = new EditarCelula();
+					frameEditarCelula.setVisible(true);
+					desktopPane.add(frameEditarCelula);
+					frameEditarCelula.requestFocus();
+					try {
+						frameEditarCelula.setSelected(true);
+					} catch (PropertyVetoException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else if (!frameEditarCelula.isVisible()) {
+					frameEditarCelula.setVisible(true);
+					desktopPane.add(frameEditarCelula);
+					frameEditarCelula.requestFocus();
+					try {
+						frameEditarCelula.setSelected(true);
+					} catch (PropertyVetoException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
 			}
 		});
 
@@ -63,13 +82,32 @@ public class Main extends JFrame {
 		menuCadastroFuncoes.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent evt) {
-				if (frameCadastroFuncao == null) {
-					frameCadastroFuncao = new CadastroFuncao();
-					frameCadastroFuncao.setVisible(true);
-					desktopPane.add(frameCadastroFuncao);
-				} else if (!frameCadastroFuncao.isVisible()) {
-					frameCadastroFuncao.setVisible(true);
-					desktopPane.add(frameCadastroFuncao);
+				if (frameEditarFuncao == null) {
+					try {
+						frameEditarFuncao = new EditarFuncao();
+					} catch (InstantiationException | IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					frameEditarFuncao.setVisible(true);
+					desktopPane.add(frameEditarFuncao);
+					frameEditarFuncao.requestFocus();
+					try {
+						frameEditarFuncao.setSelected(true);
+					} catch (PropertyVetoException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else if (!frameEditarFuncao.isVisible()) {
+					frameEditarFuncao.setVisible(true);
+					desktopPane.add(frameEditarFuncao);
+					frameEditarFuncao.requestFocus();
+					try {
+						frameEditarFuncao.setSelected(true);
+					} catch (PropertyVetoException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 
 			}
@@ -78,6 +116,45 @@ public class Main extends JFrame {
 		menuCadastroMembros = new JMenuItem("Membros");
 		menuCadastroMembros.addActionListener(new ActionListener() {
 
+			public void actionPerformed(ActionEvent evt) {
+				/*
+				 * if(frameDois == null){ frameDois = new InternalFrameDois();
+				 * frameDois.setVisible(true); desktopPane.add(frameDois); }
+				 * else if(!frameDois.isVisible()){ frameDois.setVisible(true);
+				 * desktopPane.add(frameDois); }
+				 */
+			}
+		});
+		
+		menuServicosFrequenciaCulto = new JMenuItem("Frequencia Culto");
+		menuServicosFrequenciaCulto.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent evt) {
+				/*
+				 * if(frameDois == null){ frameDois = new InternalFrameDois();
+				 * frameDois.setVisible(true); desktopPane.add(frameDois); }
+				 * else if(!frameDois.isVisible()){ frameDois.setVisible(true);
+				 * desktopPane.add(frameDois); }
+				 */
+			}
+		});
+		
+		menuServicosFrequenciaCelula = new JMenuItem("Frequencia Célula");
+		menuServicosFrequenciaCelula.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent evt) {
+				/*
+				 * if(frameDois == null){ frameDois = new InternalFrameDois();
+				 * frameDois.setVisible(true); desktopPane.add(frameDois); }
+				 * else if(!frameDois.isVisible()){ frameDois.setVisible(true);
+				 * desktopPane.add(frameDois); }
+				 */
+			}
+		});
+		
+		menuRelatorioFrequencia = new JMenuItem("Frequencia Mensal");
+		menuRelatorioFrequencia.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent evt) {
 				/*
 				 * if(frameDois == null){ frameDois = new InternalFrameDois();
@@ -96,8 +173,15 @@ public class Main extends JFrame {
 		menuCadastro.add(menuCadastroCelulas);
 		menuCadastro.add(menuCadastroFuncoes);
 		menuCadastro.add(menuCadastroMembros);
+		
+//		menuServicos.add(menuServicosFrequenciaCulto);
+//		menuServicos.add(menuServicosFrequenciaCelula);
+		
+//		menuRelatorio.add(menuRelatorioFrequencia);
 
 		menuBar.add(menuCadastro);
+	//	menuBar.add(menuServicos);
+	//	menuBar.add(menuRelatorio);
 
 		setJMenuBar(menuBar);
 

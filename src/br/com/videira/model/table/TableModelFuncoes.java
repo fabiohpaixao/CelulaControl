@@ -13,8 +13,8 @@ public class TableModelFuncoes  extends AbstractTableModel {
 	 
     private List<FuncaoDTO> linhas;// Lista de Funcoes a serem exibidos na tabela
     private String[] colunas = new String[] { "Titulo", "Abreviação" }; // Array com os nomes das colunas.
-    private static final int NOME = 0;// Constantes representando o índice das colunas
-    private static final int ENDERECO = 1;// Constantes representando o índice das colunas
+    private static final int TITULO = 0;// Constantes representando o índice das colunas
+    private static final int ABREVIACAO = 1;// Constantes representando o índice das colunas
 
     
     // Cria um FuncaoTableModel sem nenhuma linha
@@ -47,9 +47,9 @@ public class TableModelFuncoes  extends AbstractTableModel {
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		switch (columnIndex) {
-		case NOME:
+		case TITULO:
 			return String.class;
-		case ENDERECO:
+		case ABREVIACAO:
 			return String.class;
 		default:
 			// Não deve ocorrer, pois só existem 2 colunas
@@ -60,17 +60,20 @@ public class TableModelFuncoes  extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// Pega o sócio referente a linha especificada.
-	    FuncaoDTO funcao = linhas.get(rowIndex);
-	 
-	    switch (columnIndex) {
-	    case NOME:
-	        return funcao.getTitulo();
-	    case ENDERECO:
-	        return funcao.getAbreviacao();
-	    default:
-	        // Não deve ocorrer, pois só existem 2 colunas
-	        throw new IndexOutOfBoundsException("columnIndex out of bounds");
-	    }
+		if(linhas.size() > rowIndex){
+		    FuncaoDTO funcao = linhas.get(rowIndex);
+		 
+		    switch (columnIndex) {
+		    case TITULO:
+		        return funcao.getTitulo();
+		    case ABREVIACAO:
+		        return funcao.getAbreviacao();
+		    default:
+		        // Não deve ocorrer, pois só existem 2 colunas
+		        throw new IndexOutOfBoundsException("columnIndex out of bounds");
+		    }
+		}
+		return null;
 	}
 	    @Override
 	    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
@@ -78,10 +81,10 @@ public class TableModelFuncoes  extends AbstractTableModel {
 	    	FuncaoDTO funcao = linhas.get(rowIndex);
 
 	    	switch (columnIndex) {
-	    	case NOME:
+	    	case TITULO:
 	    		funcao.setTitulo((String) aValue);
 	    		break;
-	    	case ENDERECO:
+	    	case ABREVIACAO:
 	    		funcao.setAbreviacao((String) aValue);
 	    		break;
 	    	default:

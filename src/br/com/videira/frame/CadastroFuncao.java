@@ -27,8 +27,9 @@ import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
 public class CadastroFuncao extends JInternalFrame {
-	private JTextField txtNome;
-	private JTextField txtAbreviacao;
+	private JTextField txtNome = new JTextField();
+	private JTextField txtAbreviacao = new JTextField();
+	private int ID;
 
 	/**
 	 * Launch the application.
@@ -45,12 +46,24 @@ public class CadastroFuncao extends JInternalFrame {
 			}
 		});
 	}
+	
+	public CadastroFuncao(int id, String Nome, String Abrv) throws PropertyVetoException{
+		txtNome.setText(Nome);
+		txtAbreviacao.setText(Abrv);
+		ID=id;
+		
+		init();
+	}
 
 	/**
 	 * Create the frame.
 	 * @throws PropertyVetoException 
 	 */
 	public CadastroFuncao() throws PropertyVetoException {
+		init();
+	}
+
+	public void init() throws PropertyVetoException {
 		setClosable(true);
 		setTitle("Cadastro de Fun\u00E7\u00F5es");
 		setBounds(100, 100, 344, 185);
@@ -120,10 +133,10 @@ public class CadastroFuncao extends JInternalFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Insira os dados da fun\u00E7\u00E3o", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		txtNome = new JTextField();
+	//	txtNome = new JTextField();
 		txtNome.setColumns(15);
 		
-		txtAbreviacao = new JTextField();
+	//	txtAbreviacao = new JTextField();
 		txtAbreviacao.setColumns(10);
 		
 		JLabel lblTitulo = new JLabel("Titulo:");
@@ -192,8 +205,12 @@ public class CadastroFuncao extends JInternalFrame {
 	private void onClickSalvar() throws InstantiationException, IllegalAccessException, ParseException {
         FuncaoController cc = new FuncaoController();
         try {
-            cc.salvar(txtNome.getText(), txtAbreviacao.getText());
+        	if(ID > 0)
+        		cc.alterar(ID, txtNome.getText(), txtAbreviacao.getText());
+        	else
+        		cc.salvar(txtNome.getText(), txtAbreviacao.getText());
             JOptionPane.showMessageDialog(this, "Função salva com sucesso!");
+            EditarFuncao.atualizaModel();
             this.dispose();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Nao foi possivel salvar a função!\n" + e.getLocalizedMessage());

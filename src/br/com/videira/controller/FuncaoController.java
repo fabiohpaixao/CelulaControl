@@ -19,6 +19,7 @@ public class FuncaoController {
     	funcao.setAbreviacao(Abreviacao);
 
         new FuncaoDao().salvar(funcao);
+        //new FuncaoD
     }
 
     public void alterar(int ID, String Titulo, String Abreviacao) throws ParseException, SQLException, InstantiationException, IllegalAccessException {

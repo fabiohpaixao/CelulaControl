@@ -12,9 +12,10 @@ public class TableModelFuncoes  extends AbstractTableModel {
 
 	 
     private List<FuncaoDTO> linhas;// Lista de Funcoes a serem exibidos na tabela
-    private String[] colunas = new String[] { "Titulo", "Abreviação" }; // Array com os nomes das colunas.
-    private static final int TITULO = 0;// Constantes representando o índice das colunas
-    private static final int ABREVIACAO = 1;// Constantes representando o índice das colunas
+    private String[] colunas = new String[] { "ID", "Titulo", "Abreviação" }; // Array com os nomes das colunas.
+    private static final int ID = 0;// Constantes representando o índice das colunas
+    private static final int TITULO = 1;// Constantes representando o índice das colunas
+    private static final int ABREVIACAO = 2;// Constantes representando o índice das colunas
 
     
     // Cria um FuncaoTableModel sem nenhuma linha
@@ -30,42 +31,52 @@ public class TableModelFuncoes  extends AbstractTableModel {
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub
-		return linhas.size();
+		return colunas.length;
 	}
 
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
-		return colunas.length;
+		return linhas.size();
 	}
 	
 	@Override
 	public String getColumnName(int columnIndex) {
-		return colunas[columnIndex];
+		if(getRowCount() > columnIndex)
+			return colunas[columnIndex];
+		
+		return null;
 	};
 	
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
-		switch (columnIndex) {
-		case TITULO:
-			return String.class;
-		case ABREVIACAO:
-			return String.class;
-		default:
-			// Não deve ocorrer, pois só existem 2 colunas
-			throw new IndexOutOfBoundsException("columnIndex out of bounds");
-		}
+		if(getColumnCount() > columnIndex){
+				switch (columnIndex) {
+				case ID:
+					return String.class;
+				case TITULO:
+					return String.class;
+				case ABREVIACAO:
+					return String.class;
+				default:
+					// Não deve ocorrer, pois só existem 2 colunas
+					throw new IndexOutOfBoundsException("columnIndex out of bounds");
+				}
+			}
+		return null;
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// Pega o sócio referente a linha especificada.
-		if(linhas.size() > rowIndex){
+		if(getRowCount() > rowIndex && getColumnCount() > columnIndex){
 		    FuncaoDTO funcao = linhas.get(rowIndex);
 		 
 		    switch (columnIndex) {
+		    case ID:
+		        return funcao.getId();
 		    case TITULO:
-		        return funcao.getTitulo();
+		    	return funcao.getTitulo();
 		    case ABREVIACAO:
 		        return funcao.getAbreviacao();
 		    default:
@@ -81,6 +92,9 @@ public class TableModelFuncoes  extends AbstractTableModel {
 	    	FuncaoDTO funcao = linhas.get(rowIndex);
 
 	    	switch (columnIndex) {
+	    	case ID:
+	    		funcao.setId((int) aValue);
+	    		break;
 	    	case TITULO:
 	    		funcao.setTitulo((String) aValue);
 	    		break;

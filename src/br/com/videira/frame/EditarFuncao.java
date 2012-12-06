@@ -31,9 +31,10 @@ import javax.swing.border.TitledBorder;
 public class EditarFuncao extends JInternalFrame {
 	private JTextField textField;
 	private CadastroFuncao frameCadastroFuncao;
-	private TableModelFuncoes tableModel = new TableModelFuncoes();
-	private FuncaoController funcoes = new FuncaoController();
-	private JTable table;
+	private static TableModelFuncoes tableModel = new TableModelFuncoes();
+	private static FuncaoController funcoes = new FuncaoController();
+	private static JTable table;	
+	private static JScrollPane scrollPane = new JScrollPane();
 
 	/**
 	 * Launch the application.
@@ -52,10 +53,15 @@ public class EditarFuncao extends JInternalFrame {
 	}
 
 	
-	private TableModelFuncoes getTableModel() throws InstantiationException, IllegalAccessException {
+	private static TableModelFuncoes getTableModel() throws InstantiationException, IllegalAccessException {
 
 			tableModel = new TableModelFuncoes(funcoes.listaFuncaos());
 			return tableModel;
+	}
+	
+	public static void atualizaModel() throws InstantiationException, IllegalAccessException{
+		table.setModel(getTableModel());
+		scrollPane.setViewportView(table);
 	}
 	
 	/**
@@ -112,13 +118,46 @@ public class EditarFuncao extends JInternalFrame {
 		});
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (frameCadastroFuncao == null) {
+					try {
+						int linha = table.getSelectedRow();
+					//	table.getValueAt(linha, 0)
+						frameCadastroFuncao = new CadastroFuncao((int)table.getValueAt(linha, 0), (String)table.getValueAt(linha, 1), (String)table.getValueAt(linha, 2));
+					} catch (PropertyVetoException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					frameCadastroFuncao.setVisible(true);
+					Main.desktopPane.add(frameCadastroFuncao);
+					frameCadastroFuncao.requestFocus();
+			        try {
+			        	frameCadastroFuncao.setSelected(true);
+			        } catch (PropertyVetoException ex) {
+			        	ex.printStackTrace();
+			        }
+			        
+				} else if (!frameCadastroFuncao.isVisible()) {
+					frameCadastroFuncao.setVisible(true);
+					
+					Main.desktopPane.add(frameCadastroFuncao);
+					frameCadastroFuncao.requestFocus();
+			        try {
+			        	frameCadastroFuncao.setSelected(true);
+			        } catch (PropertyVetoException ex) {
+			        	ex.printStackTrace();
+			        }
+				}
+			}
+		});
 		
 		JButton btnExcluir = new JButton("Excluir");
 		
 		JLabel lblCadastroDeFunes = new JLabel("Cadastro de Fun\u00E7\u00F5es");
 		lblCadastroDeFunes.setFont(new Font("Tahoma", Font.BOLD, 17));
-		
-		JScrollPane scrollPane = new JScrollPane();
+
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Pesquise as fun\u00E7\u00F5es", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -200,7 +239,7 @@ public class EditarFuncao extends JInternalFrame {
 		panel.setLayout(gl_panel);
 		
 		table = new JTable();
-		table.setModel( getTableModel());
+		table.setModel(getTableModel());
 		scrollPane.setViewportView(table);
 		getContentPane().setLayout(groupLayout);
 

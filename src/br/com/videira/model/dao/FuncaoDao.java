@@ -1,5 +1,6 @@
 package br.com.videira.model.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,12 +10,19 @@ import java.util.List;
 import br.com.videira.model.dto.FuncaoDTO;
 
 public class FuncaoDao extends GenericDao {
+	
+	 private Connection connection;
 
     public FuncaoDao() throws InstantiationException,
 			IllegalAccessException {
 		super();
+		this.connection = ConnectionDataBase.getConnection();
 		// TODO Auto-generated constructor stub
 	}
+    
+    protected Connection getConnection() {
+    	return connection;
+    }
 
 	public void salvar(FuncaoDTO funcao) throws SQLException {
         String insert = "INSERT INTO tfuncao(Titulo, Abreviacao) VALUES(?,?)";

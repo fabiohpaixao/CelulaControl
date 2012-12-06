@@ -31,8 +31,8 @@ import javax.swing.border.TitledBorder;
 public class EditarFuncao extends JInternalFrame {
 	private JTextField textField;
 	private CadastroFuncao frameCadastroFuncao;
-	private TableModelFuncoes tableModel;
-	private FuncaoController funcoes;
+	private TableModelFuncoes tableModel = new TableModelFuncoes();
+	private FuncaoController funcoes = new FuncaoController();
 	private JTable table;
 
 	/**
@@ -53,11 +53,9 @@ public class EditarFuncao extends JInternalFrame {
 
 	
 	private TableModelFuncoes getTableModel() throws InstantiationException, IllegalAccessException {
-		if (tableModel == null) {
-			List<FuncaoDTO> func = funcoes.listaFuncaos();
-			tableModel = new TableModelFuncoes(func);
-		}
-		return tableModel;
+
+			tableModel = new TableModelFuncoes(funcoes.listaFuncaos());
+			return tableModel;
 	}
 	
 	/**
@@ -202,20 +200,7 @@ public class EditarFuncao extends JInternalFrame {
 		panel.setLayout(gl_panel);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Titulo", "Abrevia\u00E7\u00E3o"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		table.setModel( getTableModel());
 		scrollPane.setViewportView(table);
 		getContentPane().setLayout(groupLayout);
 

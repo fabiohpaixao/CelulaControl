@@ -2,6 +2,7 @@ package br.com.videira.controller;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -31,12 +32,13 @@ public class FuncaoController {
 
     public List<FuncaoDTO> listaFuncaos() throws InstantiationException, IllegalAccessException {
         FuncaoDao dao = new FuncaoDao();
+        List<FuncaoDTO> func = new ArrayList<>();
         try {
-            return dao.findFuncoes();
+            func = dao.findFuncoes();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar funcao\n" + e.getLocalizedMessage());
         }
-        return null;
+        return func;
     }
 
     public void excluir(int ID) throws SQLException, InstantiationException, IllegalAccessException {

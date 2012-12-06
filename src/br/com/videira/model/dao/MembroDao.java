@@ -1,4 +1,4 @@
-package br.com.videira.dao;
+package br.com.videira.model.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.videira.model.Membro;
+import br.com.videira.model.dto.MembroDTO;
 
 public class MembroDao extends GenericDao {
 
@@ -16,7 +16,7 @@ public class MembroDao extends GenericDao {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void salvar(Membro membro) throws SQLException {
+	public void salvar(MembroDTO membro) throws SQLException {
         String insert = "INSERT INTO tmembro(Nome, TelResidencial, TelComercial, TelCelular1, TelCelular2," +
         		" Email, DataNascimento, FuncaoID, Encontro, Batismo, Cursao, CTL, Consolidado, ConsolidadorID, DataSaida, MotivoSaida) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         save(insert, membro.getNome(), membro.getTelefoneRes(), membro.getTelefoneCom(), membro.getTelefoneCel1(), membro.getTelefoneCel2(),
@@ -24,7 +24,7 @@ public class MembroDao extends GenericDao {
         		membro.getCtl(), membro.getConsolidacao(), membro.getConsolidadorID(), membro.getDataSaida(), membro.getMotivoSaida());
     }
 
-    public void alterar(Membro membro) throws SQLException {
+    public void alterar(MembroDTO membro) throws SQLException {
         String update = "UPDATE tmembro " +
                 "SET " +
                 "Nome = ?, " +
@@ -54,8 +54,8 @@ public class MembroDao extends GenericDao {
         delete(delete, id);
     }
 
-    public List<Membro> findMembros() throws SQLException {
-        List<Membro> membros = new ArrayList<Membro>();
+    public List<MembroDTO> findMembros() throws SQLException {
+        List<MembroDTO> membros = new ArrayList<MembroDTO>();
         
         String select = "SELECT * FROM tmembro";
 
@@ -64,7 +64,7 @@ public class MembroDao extends GenericDao {
 
         while (rs.next()) {
           
-        	Membro membro = new Membro();
+        	MembroDTO membro = new MembroDTO();
         	membro.setId(rs.getInt("ID"));
         	membro.setNome(rs.getString("Nome"));
         	membro.setTelefoneRes(rs.getString("TelResidencial"));
@@ -92,15 +92,15 @@ public class MembroDao extends GenericDao {
         return membros;
     }
 
-    public Membro findByNome(String nome) throws SQLException {
+    public MembroDTO findByNome(String nome) throws SQLException {
         String select = "SELECT * FROM tmembro WHERE Nome = ?";
-        Membro membro = null;
+        MembroDTO membro = null;
         PreparedStatement stmt = getConnection().prepareStatement(select);
         stmt.setString(1, nome);
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-        	membro = new Membro();
+        	membro = new MembroDTO();
         	membro.setId(rs.getInt("ID"));
         	membro.setNome(rs.getString("Nome"));
         	membro.setTelefoneRes(rs.getString("TelResidencial"));

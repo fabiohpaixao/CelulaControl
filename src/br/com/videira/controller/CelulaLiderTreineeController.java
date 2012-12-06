@@ -6,13 +6,13 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.com.videira.dao.CelulaLiderTreineeDao;
-import br.com.videira.model.CelulaLiderTreinee;
+import br.com.videira.model.dao.CelulaLiderTreineeDao;
+import br.com.videira.model.dto.CelulaLiderTreineeDTO;
 
 public class CelulaLiderTreineeController {
 
     public void salvar(int celulaID, int membroID) throws SQLException, ParseException, InstantiationException, IllegalAccessException {
-        CelulaLiderTreinee celulaLiderTreinee = new CelulaLiderTreinee();
+        CelulaLiderTreineeDTO celulaLiderTreinee = new CelulaLiderTreineeDTO();
 
     	celulaLiderTreinee.setCelulaID(celulaID);
     	celulaLiderTreinee.setMembroID(membroID);
@@ -20,7 +20,7 @@ public class CelulaLiderTreineeController {
         new CelulaLiderTreineeDao().salvar(celulaLiderTreinee);
     }
 
-    public List<CelulaLiderTreinee> listaCelulaLiderTreinees(int membroID) throws InstantiationException, IllegalAccessException {
+    public List<CelulaLiderTreineeDTO> listaCelulaLiderTreinees(int membroID) throws InstantiationException, IllegalAccessException {
         CelulaLiderTreineeDao dao = new CelulaLiderTreineeDao();
         try {
             return dao.findLideresTreinee(membroID);

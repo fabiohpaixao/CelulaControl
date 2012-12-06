@@ -9,8 +9,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.com.videira.dao.FrequenciaDao;
-import br.com.videira.model.Frequencia;
+import br.com.videira.model.dao.FrequenciaDao;
+import br.com.videira.model.dto.FrequenciaDTO;
 
 public class FrequenciaController {
 
@@ -20,7 +20,7 @@ public class FrequenciaController {
     }
 
     public void salvar(Integer MembroID, Date Data, String Evento, Integer Presente) throws SQLException, ParseException, InstantiationException, IllegalAccessException {
-        Frequencia frequencia = new Frequencia();
+        FrequenciaDTO frequencia = new FrequenciaDTO();
 
      //   frequencia.setId(ID);
     	frequencia.setMembroID(MembroID);
@@ -32,7 +32,7 @@ public class FrequenciaController {
     }
 
     public void alterar(Integer ID, Integer MembroID, Date Data, String Evento, Integer Presente) throws ParseException, SQLException, InstantiationException, IllegalAccessException {
-        Frequencia frequencia = new Frequencia();
+        FrequenciaDTO frequencia = new FrequenciaDTO();
         frequencia.setId(ID);
         frequencia.setMembroID(MembroID);
     	frequencia.setEvento(Evento);
@@ -42,7 +42,7 @@ public class FrequenciaController {
         new FrequenciaDao().alterar(frequencia);
     }
 
-    public List<Frequencia> listaFrequencias() throws InstantiationException, IllegalAccessException {
+    public List<FrequenciaDTO> listaFrequencias() throws InstantiationException, IllegalAccessException {
         FrequenciaDao dao = new FrequenciaDao();
         try {
             return dao.findFrequencias();
@@ -56,7 +56,7 @@ public class FrequenciaController {
         new FrequenciaDao().excluir(ID);
     }
 
-    public Frequencia buscaFrequenciaPorMembro(Integer membroID) throws SQLException, InstantiationException, IllegalAccessException {
+    public FrequenciaDTO buscaFrequenciaPorMembro(Integer membroID) throws SQLException, InstantiationException, IllegalAccessException {
         FrequenciaDao dao = new FrequenciaDao();
         return dao.findByMembro(membroID);
     }

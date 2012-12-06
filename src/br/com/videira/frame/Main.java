@@ -13,7 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import br.com.videira.dao.CreateTables;
+import br.com.videira.model.dao.CreateTables;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {

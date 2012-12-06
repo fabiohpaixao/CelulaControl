@@ -1,4 +1,4 @@
-package br.com.videira.dao;
+package br.com.videira.model.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.videira.model.Celula;
+import br.com.videira.model.dto.CelulaDTO;
 
 public class CelulaDao extends GenericDao {
 
@@ -16,12 +16,12 @@ public class CelulaDao extends GenericDao {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void salvar(Celula celula) throws SQLException {
+	public void salvar(CelulaDTO celula) throws SQLException {
         String insert = "INSERT INTO tcelula(Titulo, DataInicio, DataMultiplicacao, PastorID, DiscipuladorID, LiderID, AnfitriaoID, DiaCelula) VALUES(?,?,?,?,?,?,?,?)";
         save(insert, celula.getTitulo(), celula.getDataInicio(), celula.getDataMultiplicacao(), celula.getPastorID(), celula.getDiscipuladorID(), celula.getLiderID(), celula.getAnfitriaoID(), celula.getDiaCelula());
     }
 
-    public void alterar(Celula celula) throws SQLException {
+    public void alterar(CelulaDTO celula) throws SQLException {
         String update = "UPDATE tcelula " +
                 "SET " +
                 "Titulo = ?, " +
@@ -41,8 +41,8 @@ public class CelulaDao extends GenericDao {
         delete(delete, id);
     }
 
-    public List<Celula> findCelulas() throws SQLException {
-        List<Celula> celulas = new ArrayList<Celula>();
+    public List<CelulaDTO> findCelulas() throws SQLException {
+        List<CelulaDTO> celulas = new ArrayList<CelulaDTO>();
         
         String select = "SELECT * FROM tcelula";
 
@@ -51,7 +51,7 @@ public class CelulaDao extends GenericDao {
 
         while (rs.next()) {
         	
-        	Celula celula = new Celula();
+        	CelulaDTO celula = new CelulaDTO();
         	celula.setId(rs.getInt("id"));
         	celula.setTitulo(rs.getString("Titulo"));
         	celula.setDataInicio(rs.getDate("DataInicio"));
@@ -71,15 +71,15 @@ public class CelulaDao extends GenericDao {
         return celulas;
     }
 
-    public Celula findByTitulo(String titulo) throws SQLException {
+    public CelulaDTO findByTitulo(String titulo) throws SQLException {
         String select = "SELECT * FROM tcelula WHERE Titulo = ?";
-        Celula celula = null;
+        CelulaDTO celula = null;
         PreparedStatement stmt = getConnection().prepareStatement(select);
         stmt.setString(1, titulo);
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-        	celula = new Celula();
+        	celula = new CelulaDTO();
         	celula.setId(rs.getInt("id"));
         	celula.setTitulo(rs.getString("Titulo"));
         	celula.setDataInicio(rs.getDate("DataInicio"));

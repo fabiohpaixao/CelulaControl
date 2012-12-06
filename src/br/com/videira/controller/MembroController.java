@@ -9,8 +9,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.com.videira.dao.MembroDao;
-import br.com.videira.model.Membro;
+import br.com.videira.model.dao.MembroDao;
+import br.com.videira.model.dto.MembroDTO;
 
 public class MembroController {
 
@@ -21,7 +21,7 @@ public class MembroController {
 
     public void salvar(String Nome, String TelResidencial, String TelComercial, String TelCelular1, String TelCelular2, 
     		String Email, Date DataNascimento, int FuncaoID, int Encontro, int Batismo, int Cursao,int CTL, int Consolidado, int ConsolidadorID, Date DataSaida, String MotivoSaida) throws SQLException, ParseException, InstantiationException, IllegalAccessException {
-        Membro membro = new Membro();
+        MembroDTO membro = new MembroDTO();
 
     	membro.setNome(Nome);
     	membro.setTelefoneRes(TelResidencial);
@@ -45,7 +45,7 @@ public class MembroController {
 
     public void alterar(int ID, String Nome, String TelResidencial, String TelComercial, String TelCelular1, String TelCelular2, 
     		String Email, Date DataNascimento, int FuncaoID, int Encontro, int Batismo, int Cursao,int CTL, int Consolidado, int ConsolidadorID, Date DataSaida, String MotivoSaida) throws ParseException, SQLException, InstantiationException, IllegalAccessException {
-        Membro membro = new Membro();
+        MembroDTO membro = new MembroDTO();
         membro.setId(ID);
         membro.setNome(Nome);
     	membro.setTelefoneRes(TelResidencial);
@@ -67,7 +67,7 @@ public class MembroController {
         new MembroDao().alterar(membro);
     }
 
-    public List<Membro> listaMembros() throws InstantiationException, IllegalAccessException {
+    public List<MembroDTO> listaMembros() throws InstantiationException, IllegalAccessException {
         MembroDao dao = new MembroDao();
         try {
             return dao.findMembros();
@@ -81,7 +81,7 @@ public class MembroController {
         new MembroDao().excluir(ID);
     }
 
-    public Membro buscaMembroPorNome(String Nome) throws SQLException, InstantiationException, IllegalAccessException {
+    public MembroDTO buscaMembroPorNome(String Nome) throws SQLException, InstantiationException, IllegalAccessException {
         MembroDao dao = new MembroDao();
         return dao.findByNome(Nome);
     }

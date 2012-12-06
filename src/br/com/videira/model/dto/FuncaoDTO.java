@@ -1,6 +1,6 @@
-package br.com.videira.model;
+package br.com.videira.model.dto;
 
-public class Funcao {
+public class FuncaoDTO {
 	
 	private int id;
 	private String titulo;

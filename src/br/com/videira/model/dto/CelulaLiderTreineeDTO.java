@@ -1,6 +1,6 @@
-package br.com.videira.model;
+package br.com.videira.model.dto;
 
-public class CelulaLiderTreinee {
+public class CelulaLiderTreineeDTO {
 	
 	private int celulaID;
 	private int membroID;

@@ -9,8 +9,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.com.videira.dao.CelulaDao;
-import br.com.videira.model.Celula;
+import br.com.videira.model.dao.CelulaDao;
+import br.com.videira.model.dto.CelulaDTO;
 
 public class CelulaController {
 
@@ -20,7 +20,7 @@ public class CelulaController {
     }
 
     public void salvar(String Titulo, Date DataInicio, Date DataMultiplicacao, int PastorID, int DiscipuladorID, int LiderID, int AnfitriaoID, String DiaCelula) throws SQLException, ParseException, InstantiationException, IllegalAccessException {
-        Celula celula = new Celula();
+        CelulaDTO celula = new CelulaDTO();
 
     	celula.setTitulo(Titulo);
     	celula.setDataInicio(formatarData(DataInicio.toString()));
@@ -35,7 +35,7 @@ public class CelulaController {
     }
 
     public void alterar(int ID, String Titulo, Date DataInicio, Date DataMultiplicacao, int PastorID, int DiscipuladorID, int LiderID, int AnfitriaoID, String DiaCelula) throws ParseException, SQLException, InstantiationException, IllegalAccessException {
-        Celula celula = new Celula();
+        CelulaDTO celula = new CelulaDTO();
         celula.setId(ID);
         celula.setTitulo(Titulo);
     	celula.setDataInicio(formatarData(DataInicio.toString()));
@@ -49,7 +49,7 @@ public class CelulaController {
         new CelulaDao().alterar(celula);
     }
 
-    public List<Celula> listaCelulas() throws InstantiationException, IllegalAccessException {
+    public List<CelulaDTO> listaCelulas() throws InstantiationException, IllegalAccessException {
         CelulaDao dao = new CelulaDao();
         try {
             return dao.findCelulas();
@@ -63,7 +63,7 @@ public class CelulaController {
         new CelulaDao().excluir(ID);
     }
 
-    public Celula buscaCelulaPorNome(String Titulo) throws SQLException, InstantiationException, IllegalAccessException {
+    public CelulaDTO buscaCelulaPorNome(String Titulo) throws SQLException, InstantiationException, IllegalAccessException {
         CelulaDao dao = new CelulaDao();
         return dao.findByTitulo(Titulo);
     }

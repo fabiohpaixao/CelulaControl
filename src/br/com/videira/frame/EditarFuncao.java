@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.videira.controller.FuncaoController;
-import br.com.videira.model.Funcao;
+import br.com.videira.model.dto.FuncaoDTO;
 import br.com.videira.model.table.TableModelFuncoes;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
@@ -54,7 +54,7 @@ public class EditarFuncao extends JInternalFrame {
 	
 	private TableModelFuncoes getTableModel() throws InstantiationException, IllegalAccessException {
 		if (tableModel == null) {
-			List<Funcao> func = funcoes.listaFuncaos();
+			List<FuncaoDTO> func = funcoes.listaFuncaos();
 			tableModel = new TableModelFuncoes(func);
 		}
 		return tableModel;

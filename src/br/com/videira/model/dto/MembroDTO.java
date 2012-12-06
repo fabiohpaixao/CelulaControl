@@ -1,8 +1,8 @@
-package br.com.videira.model;
+package br.com.videira.model.dto;
 
 import java.sql.Date;
 
-public class Membro {
+public class MembroDTO {
 	
 	private int id;
 	private String nome;

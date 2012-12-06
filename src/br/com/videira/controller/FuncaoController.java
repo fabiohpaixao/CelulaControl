@@ -6,13 +6,13 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.com.videira.dao.FuncaoDao;
-import br.com.videira.model.Funcao;
+import br.com.videira.model.dao.FuncaoDao;
+import br.com.videira.model.dto.FuncaoDTO;
 
 public class FuncaoController {
 
     public void salvar(String Titulo, String Abreviacao) throws SQLException, ParseException, InstantiationException, IllegalAccessException {
-        Funcao funcao = new Funcao();
+        FuncaoDTO funcao = new FuncaoDTO();
 
     	funcao.setTitulo(Titulo);
     	funcao.setAbreviacao(Abreviacao);
@@ -21,7 +21,7 @@ public class FuncaoController {
     }
 
     public void alterar(int ID, String Titulo, String Abreviacao) throws ParseException, SQLException, InstantiationException, IllegalAccessException {
-        Funcao funcao = new Funcao();
+        FuncaoDTO funcao = new FuncaoDTO();
         funcao.setId(ID);
         funcao.setTitulo(Titulo);
     	funcao.setAbreviacao(Abreviacao);
@@ -29,7 +29,7 @@ public class FuncaoController {
         new FuncaoDao().alterar(funcao);
     }
 
-    public List<Funcao> listaFuncaos() throws InstantiationException, IllegalAccessException {
+    public List<FuncaoDTO> listaFuncaos() throws InstantiationException, IllegalAccessException {
         FuncaoDao dao = new FuncaoDao();
         try {
             return dao.findFuncoes();
@@ -43,7 +43,7 @@ public class FuncaoController {
         new FuncaoDao().excluir(ID);
     }
 
-    public Funcao buscaFuncaoPorNome(String Titulo) throws SQLException, InstantiationException, IllegalAccessException {
+    public FuncaoDTO buscaFuncaoPorNome(String Titulo) throws SQLException, InstantiationException, IllegalAccessException {
         FuncaoDao dao = new FuncaoDao();
         return dao.findByTitulo(Titulo);
     }

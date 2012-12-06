@@ -1,4 +1,4 @@
-package br.com.videira.dao;
+package br.com.videira.model.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.videira.model.Frequencia;
+import br.com.videira.model.dto.FrequenciaDTO;
 
 public class FrequenciaDao extends GenericDao {
 
@@ -16,12 +16,12 @@ public class FrequenciaDao extends GenericDao {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void salvar(Frequencia frequencia) throws SQLException {
+	public void salvar(FrequenciaDTO frequencia) throws SQLException {
         String insert = "INSERT INTO tfrequencia(MembroID, Evento, Data, Presente) VALUES(?,?,?,?)";
         save(insert, frequencia.getMembroID(), frequencia.getEvento(), frequencia.getData(), frequencia.getPresente());
     }
 
-    public void alterar(Frequencia frequencia) throws SQLException {
+    public void alterar(FrequenciaDTO frequencia) throws SQLException {
         String update = "UPDATE tfrequencia " +
                 "SET " +
                 "MembroID = ?, " +
@@ -37,8 +37,8 @@ public class FrequenciaDao extends GenericDao {
         delete(delete, id);
     }
 
-    public List<Frequencia> findFrequencias() throws SQLException {
-        List<Frequencia> frequencias = new ArrayList<Frequencia>();
+    public List<FrequenciaDTO> findFrequencias() throws SQLException {
+        List<FrequenciaDTO> frequencias = new ArrayList<FrequenciaDTO>();
         
         String select = "SELECT * FROM tfrequencia";
 
@@ -47,7 +47,7 @@ public class FrequenciaDao extends GenericDao {
 
         while (rs.next()) {
         	
-        	Frequencia frequencia = new Frequencia();
+        	FrequenciaDTO frequencia = new FrequenciaDTO();
         	frequencia.setId(rs.getInt("ID"));
         	frequencia.setMembroID(rs.getInt("MembroID"));
         	frequencia.setEvento(rs.getString("Evento"));
@@ -63,15 +63,15 @@ public class FrequenciaDao extends GenericDao {
         return frequencias;
     }
 
-    public Frequencia findByMembro(Integer membroID) throws SQLException {
+    public FrequenciaDTO findByMembro(Integer membroID) throws SQLException {
         String select = "SELECT * FROM tfrequencia WHERE MembroID = ?";
-        Frequencia frequencia = null;
+        FrequenciaDTO frequencia = null;
         PreparedStatement stmt = getConnection().prepareStatement(select);
         stmt.setInt(1, membroID);
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-        	frequencia = new Frequencia();
+        	frequencia = new FrequenciaDTO();
         	frequencia.setId(rs.getInt("ID"));
         	frequencia.setMembroID(rs.getInt("MembroID"));
         	frequencia.setEvento(rs.getString("Evento"));

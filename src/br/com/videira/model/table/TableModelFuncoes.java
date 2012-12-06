@@ -5,13 +5,13 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import br.com.videira.model.Funcao;
+import br.com.videira.model.dto.FuncaoDTO;
 
 @SuppressWarnings("serial")
 public class TableModelFuncoes  extends AbstractTableModel {
 
 	 
-    private List<Funcao> linhas;// Lista de Funcoes a serem exibidos na tabela
+    private List<FuncaoDTO> linhas;// Lista de Funcoes a serem exibidos na tabela
     private String[] colunas = new String[] { "Titulo", "Abreviação" }; // Array com os nomes das colunas.
     private static final int NOME = 0;// Constantes representando o índice das colunas
     private static final int ENDERECO = 1;// Constantes representando o índice das colunas
@@ -19,12 +19,12 @@ public class TableModelFuncoes  extends AbstractTableModel {
     
     // Cria um FuncaoTableModel sem nenhuma linha
     public TableModelFuncoes() {
-        linhas = new ArrayList<Funcao>();
+        linhas = new ArrayList<FuncaoDTO>();
     }
  
     // Cria um FuncaoTableModel contendo a lista recebida por parâmetro
-    public TableModelFuncoes(List<Funcao> listaDeFuncoes) {
-        linhas = new ArrayList<Funcao>(listaDeFuncoes);
+    public TableModelFuncoes(List<FuncaoDTO> listaDeFuncoes) {
+        linhas = new ArrayList<FuncaoDTO>(listaDeFuncoes);
     }
 
 	@Override
@@ -60,7 +60,7 @@ public class TableModelFuncoes  extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// Pega o sócio referente a linha especificada.
-	    Funcao funcao = linhas.get(rowIndex);
+	    FuncaoDTO funcao = linhas.get(rowIndex);
 	 
 	    switch (columnIndex) {
 	    case NOME:
@@ -75,7 +75,7 @@ public class TableModelFuncoes  extends AbstractTableModel {
 	    @Override
 	    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 	    	// Pega o sócio referente a linha especificada.
-	    	Funcao funcao = linhas.get(rowIndex);
+	    	FuncaoDTO funcao = linhas.get(rowIndex);
 
 	    	switch (columnIndex) {
 	    	case NOME:
@@ -93,12 +93,12 @@ public class TableModelFuncoes  extends AbstractTableModel {
 	    }
 	    
 	 // Retorna o sócio referente a linha especificada
-	    public Funcao getFuncao(int indiceLinha) {
+	    public FuncaoDTO getFuncao(int indiceLinha) {
 	    	return linhas.get(indiceLinha);
 	    }
 
 	    // Adiciona o sócio especificado ao modelo
-	    public void addFuncao(Funcao funcao) {
+	    public void addFuncao(FuncaoDTO funcao) {
 	    	// Adiciona o registro.
 	    	linhas.add(funcao);
 
@@ -121,7 +121,7 @@ public class TableModelFuncoes  extends AbstractTableModel {
 	    }
 
 	    // Adiciona uma lista de sócios no final da lista.
-	    public void addListaDeFuncaos(List<Funcao> funcaos) {
+	    public void addListaDeFuncaos(List<FuncaoDTO> funcaos) {
 	    	// Pega o tamanho antigo da tabela, que servirá
 	    	// como índice para o primeiro dos novos registros
 	    	int indice = getRowCount();

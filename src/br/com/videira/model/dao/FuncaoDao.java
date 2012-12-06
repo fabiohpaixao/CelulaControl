@@ -1,4 +1,4 @@
-package br.com.videira.dao;
+package br.com.videira.model.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.videira.model.Funcao;
+import br.com.videira.model.dto.FuncaoDTO;
 
 public class FuncaoDao extends GenericDao {
 
@@ -16,12 +16,12 @@ public class FuncaoDao extends GenericDao {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void salvar(Funcao funcao) throws SQLException {
+	public void salvar(FuncaoDTO funcao) throws SQLException {
         String insert = "INSERT INTO tfuncao(Titulo, Abreviacao) VALUES(?,?)";
         save(insert, funcao.getTitulo(), funcao.getAbreviacao());
     }
 
-    public void alterar(Funcao funcao) throws SQLException {
+    public void alterar(FuncaoDTO funcao) throws SQLException {
         String update = "UPDATE tfuncao " +
                 "SET " +
                 "Titulo = ?, " +
@@ -35,9 +35,9 @@ public class FuncaoDao extends GenericDao {
         delete(delete, id);
     }
 
-    public List<Funcao> findFuncoes() throws SQLException {
+    public List<FuncaoDTO> findFuncoes() throws SQLException {
      
-    	List<Funcao> funcoes = new ArrayList<Funcao>();
+    	List<FuncaoDTO> funcoes = new ArrayList<FuncaoDTO>();
         
         String select = "SELECT * FROM tfuncao";
 
@@ -46,7 +46,7 @@ public class FuncaoDao extends GenericDao {
 
         while (rs.next()) {
         	
-        	Funcao funcao = new Funcao();
+        	FuncaoDTO funcao = new FuncaoDTO();
         	funcao.setId(rs.getInt("id"));
         	funcao.setTitulo(rs.getString("Titulo"));
         	funcao.setAbreviacao(rs.getString("Abreviacao"));
@@ -60,15 +60,15 @@ public class FuncaoDao extends GenericDao {
         return funcoes;
     }
 
-    public Funcao findByTitulo(String titulo) throws SQLException {
+    public FuncaoDTO findByTitulo(String titulo) throws SQLException {
         String select = "SELECT * FROM tfuncao WHERE Titulo = ?";
-        Funcao funcao = null;
+        FuncaoDTO funcao = null;
         PreparedStatement stmt = getConnection().prepareStatement(select);
         stmt.setString(1, titulo);
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-        	funcao = new Funcao();
+        	funcao = new FuncaoDTO();
         	funcao.setId(rs.getInt("id"));
         	funcao.setTitulo(rs.getString("Titulo"));
         	funcao.setAbreviacao(rs.getString("Abreviacao"));

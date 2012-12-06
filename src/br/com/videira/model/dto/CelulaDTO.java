@@ -1,9 +1,9 @@
-package br.com.videira.model;
+package br.com.videira.model.dto;
 
 import java.sql.Date;
 
 
-public class Celula{
+public class CelulaDTO{
 	
 	private Integer id;
 	private String titulo;

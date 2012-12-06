@@ -1,4 +1,4 @@
-package br.com.videira.dao;
+package br.com.videira.model.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.videira.model.CelulaLiderTreinee;
+import br.com.videira.model.dto.CelulaLiderTreineeDTO;
 
 public class CelulaLiderTreineeDao extends GenericDao {
 
@@ -16,7 +16,7 @@ public class CelulaLiderTreineeDao extends GenericDao {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void salvar(CelulaLiderTreinee celulaLiderTreinee) throws SQLException {
+	public void salvar(CelulaLiderTreineeDTO celulaLiderTreinee) throws SQLException {
         String insert = "INSERT INTO tcelulaLiderTreinee(CelulaID, MembroID) VALUES(?,?)";
         save(insert, celulaLiderTreinee.getCelulaID(), celulaLiderTreinee.getMembroID());
     }
@@ -26,8 +26,8 @@ public class CelulaLiderTreineeDao extends GenericDao {
         delete(delete, membroID, celulaID);
     }
 
-    public List<CelulaLiderTreinee> findLideresTreinee(int membroID) throws SQLException {
-        List<CelulaLiderTreinee> lideres = new ArrayList<CelulaLiderTreinee>();
+    public List<CelulaLiderTreineeDTO> findLideresTreinee(int membroID) throws SQLException {
+        List<CelulaLiderTreineeDTO> lideres = new ArrayList<CelulaLiderTreineeDTO>();
         
         String select = "SELECT * FROM tcelulaLiderTreinee WHERE CelulaID = ?";
 
@@ -37,7 +37,7 @@ public class CelulaLiderTreineeDao extends GenericDao {
 
         while (rs.next()) {
         	
-        	CelulaLiderTreinee celulaLiderTreinee = new CelulaLiderTreinee();
+        	CelulaLiderTreineeDTO celulaLiderTreinee = new CelulaLiderTreineeDTO();
         	celulaLiderTreinee.setMembroID(rs.getInt("MembroID"));
         	celulaLiderTreinee.setCelulaID(rs.getInt("CelulaID"));
             

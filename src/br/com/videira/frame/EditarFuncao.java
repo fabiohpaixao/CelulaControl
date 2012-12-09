@@ -1,31 +1,29 @@
 package br.com.videira.frame;
 
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
-import java.util.List;
+import java.sql.SQLException;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.border.TitledBorder;
 
 import br.com.videira.controller.FuncaoController;
-import br.com.videira.model.dto.FuncaoDTO;
 import br.com.videira.model.table.TableModelFuncoes;
-import javax.swing.JScrollPane;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
+import javax.swing.SwingConstants;
+import java.awt.Component;
 
 @SuppressWarnings("serial")
 public class EditarFuncao extends JInternalFrame {
@@ -74,9 +72,7 @@ public class EditarFuncao extends JInternalFrame {
 		setClosable(true);
 		setBounds(100, 100, 414, 343);
 		
-		JButton btnOk = new JButton("Ok");
-		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Fechar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				doDefaultCloseAction();
@@ -123,8 +119,10 @@ public class EditarFuncao extends JInternalFrame {
 				if (frameCadastroFuncao == null) {
 					try {
 						int linha = table.getSelectedRow();
-					//	table.getValueAt(linha, 0)
-						frameCadastroFuncao = new CadastroFuncao((int)table.getValueAt(linha, 0), (String)table.getValueAt(linha, 1), (String)table.getValueAt(linha, 2));
+						if(linha < 0)
+							JOptionPane.showMessageDialog(null, "Selecione algum registro.", "Editar Função", JOptionPane.INFORMATION_MESSAGE);
+						else
+							frameCadastroFuncao = new CadastroFuncao((int)table.getValueAt(linha, 0), (String)table.getValueAt(linha, 1), (String)table.getValueAt(linha, 2));
 					} catch (PropertyVetoException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -154,6 +152,30 @@ public class EditarFuncao extends JInternalFrame {
 		});
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				int linha = table.getSelectedRow();
+				if(linha < 0){
+					JOptionPane.showMessageDialog(null, "Selecione algum registro.", "Excluir Função", JOptionPane.INFORMATION_MESSAGE);
+				}else{
+					//new CadastroFuncao((int)table.getValueAt(linha, 0), (String)table.getValueAt(linha, 1), (String)table.getValueAt(linha, 2));
+					FuncaoController funcao = new FuncaoController();
+					try {
+						int c = JOptionPane.showConfirmDialog(null, "ATENÇÃO\nDeseja realmente exluir o registro?");
+						if(c == 0){
+							funcao.excluir((int)table.getValueAt(linha, 0));
+							atualizaModel();
+						}
+					} catch (InstantiationException | IllegalAccessException
+							| SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+				}
+			}
+		});
 		
 		JLabel lblCadastroDeFunes = new JLabel("Cadastro de Fun\u00E7\u00F5es");
 		lblCadastroDeFunes.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -171,19 +193,16 @@ public class EditarFuncao extends JInternalFrame {
 							.addComponent(lblCadastroDeFunes))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE)
-										.addComponent(btnCancelar))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-											.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-											.addComponent(btnNovo, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
-										.addComponent(btnOk, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))))))
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnNovo, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnCancelar))))))
 					.addGap(11))
 		);
 		groupLayout.setVerticalGroup(
@@ -202,12 +221,11 @@ public class EditarFuncao extends JInternalFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnExcluir))
 						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnOk)
-						.addComponent(btnCancelar))
-					.addContainerGap(14, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+					.addComponent(btnCancelar)
+					.addContainerGap())
 		);
+		groupLayout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnCancelar, btnExcluir});
 		
 		JLabel lblTituloabreviao = new JLabel("Titulo");
 		

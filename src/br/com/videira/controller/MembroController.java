@@ -20,7 +20,8 @@ public class MembroController {
     }
 
     public void salvar(String Nome, String TelResidencial, String TelComercial, String TelCelular1, String TelCelular2, 
-    		String Email, Date DataNascimento, int FuncaoID, int Encontro, int Batismo, int Cursao,int CTL, int Consolidado, int ConsolidadorID, Date DataSaida, String MotivoSaida) throws SQLException, ParseException, InstantiationException, IllegalAccessException {
+    		String Email, Date DataNascimento, int FuncaoID, int Encontro, int Batismo, int Cursao,int CTL, int Consolidado, int ConsolidadorID, Date DataSaida, String MotivoSaida,
+    		String CEP, String Rua, String Bairro, String Cidade, String Estado, Integer Numero) throws SQLException, ParseException, InstantiationException, IllegalAccessException {
         MembroDTO membro = new MembroDTO();
 
     	membro.setNome(Nome);
@@ -39,12 +40,19 @@ public class MembroController {
     	membro.setConsolidadorID(ConsolidadorID);
     	membro.setDataSaida(DataSaida);
     	membro.setMotivoSaida(MotivoSaida);
+    	membro.setCep(CEP);
+    	membro.setRua(Rua);
+    	membro.setBairro(Bairro);
+    	membro.setCidade(Cidade);
+    	membro.setEstado(Estado);
+    	membro.setNumero(Numero);
 
         new MembroDao().salvar(membro);
     }
 
     public void alterar(int ID, String Nome, String TelResidencial, String TelComercial, String TelCelular1, String TelCelular2, 
-    		String Email, Date DataNascimento, int FuncaoID, int Encontro, int Batismo, int Cursao,int CTL, int Consolidado, int ConsolidadorID, Date DataSaida, String MotivoSaida) throws ParseException, SQLException, InstantiationException, IllegalAccessException {
+    		String Email, Date DataNascimento, int FuncaoID, int Encontro, int Batismo, int Cursao,int CTL, int Consolidado, int ConsolidadorID, Date DataSaida, String MotivoSaida,
+    		String CEP, String Rua, String Bairro, String Cidade, String Estado, Integer Numero) throws ParseException, SQLException, InstantiationException, IllegalAccessException {
         MembroDTO membro = new MembroDTO();
         membro.setId(ID);
         membro.setNome(Nome);
@@ -63,6 +71,13 @@ public class MembroController {
     	membro.setConsolidadorID(ConsolidadorID);
     	membro.setDataSaida(DataSaida);
     	membro.setMotivoSaida(MotivoSaida);
+    	membro.setCep(CEP);
+    	membro.setRua(Rua);
+    	membro.setBairro(Bairro);
+    	membro.setCidade(Cidade);
+    	membro.setEstado(Estado);
+    	membro.setNumero(Numero);
+        
 
         new MembroDao().alterar(membro);
     }
@@ -84,5 +99,10 @@ public class MembroController {
     public MembroDTO buscaMembroPorNome(String Nome) throws SQLException, InstantiationException, IllegalAccessException {
         MembroDao dao = new MembroDao();
         return dao.findByNome(Nome);
+    }
+
+    public MembroDTO buscaMembroPorID(Integer ID) throws SQLException, InstantiationException, IllegalAccessException {
+    	MembroDao dao = new MembroDao();
+    	return dao.findByID(ID);
     }
 }

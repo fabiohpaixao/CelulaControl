@@ -1,26 +1,30 @@
 package br.com.videira.frame;
 
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.ParseException;
 
-import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
 import javax.swing.SwingConstants;
-import java.awt.Component;
-import javax.swing.JFormattedTextField;
+import javax.swing.border.TitledBorder;
 
+import br.com.videira.controller.CelulaController;
 import br.com.videira.util.Util;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class CadastroCelula extends JInternalFrame {
 	private JTextField textField;
 	private JTextField textField_3;
@@ -45,6 +49,9 @@ public class CadastroCelula extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public CadastroCelula() {
+		init();
+	}
+	public void init() {
 		setTitle("Cadastro de C\u00E9lulas");
 		setClosable(true);
 		setBounds(100, 100, 450, 261);
@@ -52,7 +59,25 @@ public class CadastroCelula extends JInternalFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Insira os dados da c\u00E9lula", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
-		JButton btnOk = new JButton("Salvar");
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					try {
+						onClickSalvar();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} catch (InstantiationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -70,7 +95,7 @@ public class CadastroCelula extends JInternalFrame {
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnCancelar)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnOk)))
+							.addComponent(btnSalvar)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -80,11 +105,11 @@ public class CadastroCelula extends JInternalFrame {
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnOk)
+						.addComponent(btnSalvar)
 						.addComponent(btnCancelar))
 					.addContainerGap())
 		);
-		groupLayout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnOk, btnCancelar});
+		groupLayout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnSalvar, btnCancelar});
 		
 		JLabel lblNome = new JLabel("Nome:");
 		
@@ -187,4 +212,19 @@ public class CadastroCelula extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 
 	}
+	
+	private void onClickSalvar() throws InstantiationException, IllegalAccessException, ParseException {
+        CelulaController cc = new CelulaController();
+        try {
+        /*	if(ID > 0)
+        		cc.alterar(ID, txt.getText(), txtAbreviacao.getText());
+        	else
+        		cc.salvar(txtNome.getText(), txtAbreviacao.getText());*/
+            JOptionPane.showMessageDialog(this, "Função salva com sucesso!");
+            EditarFuncao.atualizaModel();
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Nao foi possivel salvar a função!\n" + e.getLocalizedMessage());
+        }
+    }
 }

@@ -94,9 +94,7 @@ public class EditarCelula extends JInternalFrame {
 		
 		JButton btnExcluir = new JButton("Excluir");
 		
-		JButton btnOk = new JButton("Ok");
-		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Fechar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				doDefaultCloseAction();
@@ -109,18 +107,16 @@ public class EditarCelula extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(btnCancelar)
-								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 407, GroupLayout.PREFERRED_SIZE))
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 407, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnOk)
 								.addComponent(btnExcluir)
 								.addComponent(btnEditar)
-								.addComponent(btnNovo, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(btnNovo, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnCancelar)))
 						.addComponent(lblCadastreUmaNova)
 						.addComponent(panel, 0, 0, Short.MAX_VALUE))
-					.addContainerGap(534, Short.MAX_VALUE))
+					.addContainerGap(29, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -139,12 +135,10 @@ public class EditarCelula extends JInternalFrame {
 							.addGap(7)
 							.addComponent(btnExcluir)))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCancelar)
-						.addComponent(btnOk))
-					.addContainerGap())
+					.addComponent(btnCancelar)
+					.addGap(14))
 		);
-		groupLayout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnNovo, btnEditar, btnExcluir, btnOk, btnCancelar});
+		groupLayout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnNovo, btnEditar, btnExcluir, btnCancelar});
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(

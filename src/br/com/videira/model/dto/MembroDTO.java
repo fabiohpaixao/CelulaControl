@@ -12,15 +12,21 @@ public class MembroDTO {
 	private String telefoneCom;
 	private String email;
 	private Date dataNascimento;
-	private int funcaoID;
-	private int encontro;
-	private int cursao;
-	private int batismo;
-	private int ctl;
-	private int consolidacao;
-	private int consolidadorID;
+	private Integer funcaoID;
+	private Integer encontro;
+	private Integer cursao;
+	private Integer batismo;
+	private Integer ctl;
+	private Integer consolidacao;
+	private Integer consolidadorID;
 	private Date dataSaida;
 	private String motivoSaida;
+	private String cep;
+	private String rua;
+	private String bairro;
+	private String cidade;
+	private String estado;
+	private Integer numero;
 	/**
 	 * @return the id
 	 */
@@ -224,6 +230,120 @@ public class MembroDTO {
 	 */
 	public void setMotivoSaida(String motivoSaida) {
 		this.motivoSaida = motivoSaida;
+	}
+	/**
+	 * @return the cep
+	 */
+	public String getCep() {
+		return cep;
+	}
+	/**
+	 * @param cep the cep to set
+	 */
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+	/**
+	 * @return the rua
+	 */
+	public String getRua() {
+		return rua;
+	}
+	/**
+	 * @param rua the rua to set
+	 */
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+	/**
+	 * @return the bairro
+	 */
+	public String getBairro() {
+		return bairro;
+	}
+	/**
+	 * @param bairro the bairro to set
+	 */
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+	/**
+	 * @return the cidade
+	 */
+	public String getCidade() {
+		return cidade;
+	}
+	/**
+	 * @param cidade the cidade to set
+	 */
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+	/**
+	 * @return the estado
+	 */
+	public String getEstado() {
+		return estado;
+	}
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	/**
+	 * @return the numero
+	 */
+	public Integer getNumero() {
+		return numero;
+	}
+	/**
+	 * @param numero the numero to set
+	 */
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+	/**
+	 * @param funcaoID the funcaoID to set
+	 */
+	public void setFuncaoID(Integer funcaoID) {
+		this.funcaoID = funcaoID;
+	}
+	/**
+	 * @param encontro the encontro to set
+	 */
+	public void setEncontro(Integer encontro) {
+		this.encontro = encontro;
+	}
+	/**
+	 * @param cursao the cursao to set
+	 */
+	public void setCursao(Integer cursao) {
+		this.cursao = cursao;
+	}
+	/**
+	 * @param batismo the batismo to set
+	 */
+	public void setBatismo(Integer batismo) {
+		this.batismo = batismo;
+	}
+	/**
+	 * @param ctl the ctl to set
+	 */
+	public void setCtl(Integer ctl) {
+		this.ctl = ctl;
+	}
+	/**
+	 * @param consolidacao the consolidacao to set
+	 */
+	public void setConsolidacao(Integer consolidacao) {
+		this.consolidacao = consolidacao;
+	}
+	/**
+	 * @param consolidadorID the consolidadorID to set
+	 */
+	public void setConsolidadorID(Integer consolidadorID) {
+		this.consolidadorID = consolidadorID;
 	}
 	
 	

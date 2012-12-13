@@ -6,24 +6,24 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.com.videira.model.dao.MembroFuncaoDAO;
+import br.com.videira.model.dao.MembroFuncaoDao;
 import br.com.videira.model.dto.MembroFuncaoDTO;
 
 public class MembroFuncaoController {
 
     public void salvar(int funcaoID, int membroID) throws SQLException, ParseException, InstantiationException, IllegalAccessException {
-        MembroFuncaoDTO funcaoLiderTreinee = new MembroFuncaoDTO();
+        MembroFuncaoDTO membroFuncao = new MembroFuncaoDTO();
 
-    	funcaoLiderTreinee.setFuncaoID(funcaoID);
-    	funcaoLiderTreinee.setMembroID(membroID);
+        membroFuncao.setFuncaoID(funcaoID);
+        membroFuncao.setMembroID(membroID);
 
-        new MembroFuncaoDAO().salvar(funcaoLiderTreinee);
+        new MembroFuncaoDao().salvar(membroFuncao);
     }
 
-    public List<MembroFuncaoDTO> listaFuncaoLiderTreinees(int membroID) throws InstantiationException, IllegalAccessException {
-        MembroFuncaoDAO dao = new MembroFuncaoDAO();
+    public List<MembroFuncaoDTO> listaAnfitrioes() throws InstantiationException, IllegalAccessException {
+    	MembroFuncaoDao dao = new MembroFuncaoDao();
         try {
-            return dao.findLideresTreinee(membroID);
+            return dao.findAnfitrioes();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Problemas ao localizar funcaoLiderTreinee\n" + e.getLocalizedMessage());
         }
@@ -31,7 +31,7 @@ public class MembroFuncaoController {
     }
 
     public void excluir(int membroID, int funcaoID) throws SQLException, InstantiationException, IllegalAccessException {
-        new MembroFuncaoDAO().excluir(membroID, funcaoID);
+        new MembroFuncaoDao().excluir(membroID, funcaoID);
     }
 
 }

@@ -24,10 +24,18 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import br.com.videira.controller.CelulaController;
+import br.com.videira.controller.FuncaoController;
+import br.com.videira.model.table.TableModelCelulas;
+import br.com.videira.model.table.TableModelFuncoes;
+
 public class EditarCelula extends JInternalFrame {
 	private JTextField textField;
-	private JTable table;
 	private CadastroCelula frameCadastroCelula;
+	private static CelulaController celulas = new CelulaController();
+	private static TableModelCelulas tableModel = new TableModelCelulas();
+	private static JTable table;	
+	private static JScrollPane scrollPane = new JScrollPane();
 
 	/**
 	 * Launch the application.
@@ -44,11 +52,24 @@ public class EditarCelula extends JInternalFrame {
 			}
 		});
 	}
+	
+	private static TableModelCelulas getTableModel() throws InstantiationException, IllegalAccessException {
+
+		tableModel = new TableModelCelulas(celulas.listaCelulas());
+		return tableModel;
+	}
+	
+	public static void atualizaModel() throws InstantiationException, IllegalAccessException{
+		table.setModel(getTableModel());
+		scrollPane.setViewportView(table);
+	}
 
 	/**
 	 * Create the frame.
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public EditarCelula() {
+	public EditarCelula() throws InstantiationException, IllegalAccessException {
 		setClosable(true);
 		setTitle("Cadastro de C\u00E9lulas");
 		setBounds(100, 100, 540, 380);
@@ -140,21 +161,7 @@ public class EditarCelula extends JInternalFrame {
 		);
 		groupLayout.linkSize(SwingConstants.HORIZONTAL, new Component[] {btnNovo, btnEditar, btnExcluir, btnCancelar});
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nome", "Lider", "Anfitri\u00E3o", "Discipulador", "Bairro"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, true, true, true, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		
 		scrollPane.setViewportView(table);
 		
 		JLabel lblTitulo = new JLabel("Titulo:");
@@ -203,6 +210,11 @@ public class EditarCelula extends JInternalFrame {
 						.addComponent(btnNewButton))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
+		
+		table = new JTable();
+		table.setModel(getTableModel());
+		scrollPane.setViewportView(table);
+		
 		panel.setLayout(gl_panel);
 		getContentPane().setLayout(groupLayout);
 

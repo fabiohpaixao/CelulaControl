@@ -104,7 +104,7 @@ public class TableModelCelulas  extends AbstractTableModel {
 		    case LIDER:
 		        return celula.getLiderID();
 		    case ANFITRIAO:
-		    	return celula.getAnfitriaoID();
+		    	return anfitriao.getNome();
 		    case BAIRRO:
 		    	return anfitriao.getBairro();
 		    default:

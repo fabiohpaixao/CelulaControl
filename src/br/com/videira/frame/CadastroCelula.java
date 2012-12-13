@@ -4,8 +4,9 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -22,6 +23,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import br.com.videira.controller.CelulaController;
+import br.com.videira.controller.MembroController;
+import br.com.videira.model.dto.MembroDTO;
 import br.com.videira.util.Util;
 
 @SuppressWarnings("serial")
@@ -47,11 +50,13 @@ public class CadastroCelula extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public CadastroCelula() {
+	public CadastroCelula() throws InstantiationException, IllegalAccessException {
 		init();
 	}
-	public void init() {
+	public void init() throws InstantiationException, IllegalAccessException {
 		setTitle("Cadastro de C\u00E9lulas");
 		setClosable(true);
 		setBounds(100, 100, 450, 261);
@@ -119,6 +124,14 @@ public class CadastroCelula extends JInternalFrame {
 		JLabel lblLider = new JLabel("Lider:");
 		
 		JComboBox comboBox = new JComboBox();
+		JComboBox comboBox_1 = new JComboBox();
+		JComboBox comboBox_2 = new JComboBox();
+		JComboBox comboBox_3 = new JComboBox();
+		
+		comboBox = populaComboBox();
+		comboBox_1 = populaComboBox();
+		comboBox_2 = populaComboBox();
+		comboBox_3 = populaComboBox();
 		
 		JLabel lblAnfitrio = new JLabel("Anfitri\u00E3o:");
 		
@@ -130,11 +143,6 @@ public class CadastroCelula extends JInternalFrame {
 		
 		JLabel lblDataDeMultiplicao = new JLabel("Data Multiplica\u00E7\u00E3o:");
 		
-		JComboBox comboBox_1 = new JComboBox();
-		
-		JComboBox comboBox_2 = new JComboBox();
-		
-		JComboBox comboBox_3 = new JComboBox();
 		
 		JLabel lblDiaDaClula = new JLabel("Dia da C\u00E9lula:");
 		
@@ -227,4 +235,22 @@ public class CadastroCelula extends JInternalFrame {
             JOptionPane.showMessageDialog(this, "Nao foi possivel salvar a função!\n" + e.getLocalizedMessage());
         }
     }
+	
+	private JComboBox populaComboBox() throws InstantiationException, IllegalAccessException{
+		MembroController membroCtrl = new MembroController();
+		
+		List<MembroDTO> membros = new ArrayList<MembroDTO>();
+		membros = membroCtrl.listaMembros();
+		JComboBox<String> c = new JComboBox();
+		//Remove todos os itens do model ComboBox  
+		//comboBox.removeAllItems();  
+  
+        //O método addItem adiciona objetos ao model do ComboBox  
+        //Esse getNome do objeto c retorna uma String  
+        for (MembroDTO membro : membros) {//Tô usando aqui o for each, disponível a partir da JVM 1.5  
+        	c.addItem(membro.getNome());  
+        }
+		
+        return c;
+	}
 }

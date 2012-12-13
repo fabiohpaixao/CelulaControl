@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.videira.database.ConnectionDataBase;
 import br.com.videira.model.dto.FuncaoDTO;
 
 public class FuncaoDao extends GenericDao {

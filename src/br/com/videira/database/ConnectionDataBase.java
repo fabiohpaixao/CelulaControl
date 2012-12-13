@@ -1,4 +1,4 @@
-package br.com.videira.model.dao;
+package br.com.videira.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
